@@ -33,26 +33,38 @@ def ListvsNumpy():
     a2/a1
     a1-a2
 #########################################################
-a1d=np.array([2,3,4])
-b2d=np.array([
-a2d=np.array([[2,3,4],[4,5,6],[2,1,3]])
-a2d=np.array([[2,3,4],[4,5,6],[2,1,3]],dtype=np.float64)
-a2dc=np.array([[2,3,4],[4,5,6],[2,1,3]],dtype=complex)
-print("a1d dim=",a1d.ndim,",a2d dim=",a2d.ndim)
-print("a1d itemsize=",a1d.itemsize,",a2d itemsize=",a2d.itemsize)
-print(a2d.size,a2d.shape,type(a2d))
-seq1=np.arange(1,10) # will not include 10
-seq2=np.arange(1,10,2)
-seq3=np.linspace(1,10,20) #linearly spaced 20 number
-seq1.reshape(3,3)
-a2d.ravel() # flatten
-print(a2d.min(),a2d.max(),a2d.sum())
-print(a2d.sum(axis=1),a2d.sum(axis=0)) # row(1) and column(0) sums
-print(a2d.mean(),a2d.std(),np.sqrt(a2d))
-print(np.dot(a2d,a2d)) # matrix multiplication
-print("Row 2=",a2d[1,:],",Col 1=",a2d[:,0],",3,2=",a2d[2,1])
-print("Last row=",a2d[-1],"Second Last col=",a2d[:,-2])
+def numpy2():
+    a1d=np.array([2,3,4])
+    b2d=(np.arange(1,21)).reshape(4,5) # creates a 4x5 matrix
+    a2d=np.array([[2,3,4],[4,5,6],[2,1,3]])
+    a2d=np.array([[2,3,4],[4,5,6],[2,1,3]],dtype=np.float64)
+    a2dc=np.array([[2,3,4],[4,5,6],[2,1,3]],dtype=complex)
+    print("a1d dim=",a1d.ndim,",a2d dim=",a2d.ndim)
+    print("a1d itemsize=",a1d.itemsize,",a2d itemsize=",a2d.itemsize)
+    print(a2d.size,a2d.shape,type(a2d))
+    seq2=np.arange(1,11,2) # skip by 2, 11 not included.
+    seq3=np.linspace(1,10,20) #linearly spaced 20 number
+    a2d.ravel() # flatten
+    print(a2d.min(),a2d.max(),a2d.sum())
+    print(a2d.sum(axis=1),a2d.sum(axis=0)) # row(1) and column(0) sums
+    print(a2d.mean(),a2d.std(),np.sqrt(a2d))
+    print(np.dot(a2d,a2d)) # matrix multiplication
+    print("Row 2=",a2d[1,:],",Col 1=",a2d[:,0],",3,2=",a2d[2,1])
+    print("Last row=",a2d[-1],"Second Last col=",a2d[:,-2])
+#########################################################
+b2d=(np.arange(1,21)).reshape(4,5) # creates a 4x5 matrix
+c2d=(np.arange(21,41)).reshape(4,5) # creates a 4x5 matrix
+for row in b2d: # print each row
+    print(row)
+for cell in b2d.flat: # print each element
+    print(cell)
+print(np.vstack((b2d,c2d))) # stack vertical
+print(np.hstack((b2d,c2d))) # stack horizontal
+print(np.hsplit(b2d,2)) # split
+print(np.hsplit(seq3,2))
+print(b2d > 10,b2d[b2d > 10]) # Boolean, Boolean indexing
 #########################################################
 #ListvsNumpy()
+
     
 
