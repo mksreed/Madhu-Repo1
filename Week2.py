@@ -173,7 +173,7 @@ def answer_six():
 temp1=answer_six()
 print(temp1)
 # -------------------
-def answer_seven():
+def answer_seven1():
     pmax=0
     df0=census_df[census_df['COUNTY']>0]
     for index, row in df0.iterrows():
@@ -181,7 +181,19 @@ def answer_seven():
         pmax=max(pmax,max(p1)-min(p1))
         print(row['CTYNAME'],max(p1)-min(p1),pmax)
     return pmax
-print(answer_seven())
+print(answer_seven1())
+def answer_seven():
+    pmax=0
+    df0=census_df[census_df['COUNTY']>0]
+    for index, row in df0.iterrows():
+        p1=[row['POPESTIMATE2015'],row['POPESTIMATE2014'],row['POPESTIMATE2013'],row['POPESTIMATE2012'],row['POPESTIMATE2010'],row['POPESTIMATE2011']]
+        pmaxmin=max(p1)-min(p1)
+        pmax=max(pmax,pmaxmin)
+        if(pmax==pmaxmin):
+            pcounty=row['CTYNAME']
+            #print(row['CTYNAME'],pmaxmin,pmax,p1)
+    return pcounty
+answer_seven()
 
 #-----------------------
 def answer_eight():
