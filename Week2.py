@@ -88,18 +88,42 @@ df.head()
 def answer_zero():
     return df.iloc[0]
 answer_zero() 
+#-----------------------------------
+def answer_one():
+    return df['Gold'].idxmax()
+answer_one()
 df['Gold'].idxmax()
+#-----------------------------------
+df['delta']=abs(df['Gold']-df['Gold.1'])
+df['delta'].idxmax()
+def answer_two():
+    df['delta']=abs(df['Gold']-df['Gold.1'])
+    return df['delta'].idxmax()
+answer_two()
+#------------------------------------
 df['delta']=abs(df['Gold']-df['Gold.1'])
 df['TotalGolds']=abs(df['Gold']+df['Gold.1'])
 df['relativedelta']=((df['Gold']-df['Gold.1']))/(df['TotalGolds'])
-df['delta'].idxmax()
 df1=(df[(df['Gold']>0) & (df['Gold.1']>0)])
 len(df)-len(df1)
 df1.columns
 df1['relativedelta'].idxmax()
+def answer_three():
+    df['delta']=abs(df['Gold']-df['Gold.1'])
+    df['TotalGolds']=abs(df['Gold']+df['Gold.1'])
+    df['relativedelta']=((df['Gold']-df['Gold.1']))/(df['TotalGolds'])
+    df1=(df[(df['Gold']>0) & (df['Gold.1']>0)])
+    return df1['relativedelta'].idxmax()
+answer_three()
+#------------------------------------
 df['Points']=df['Gold.2']*3+df['Silver.2']*2+df['Bronze.2']
 s=pd.Series(df['Points'])
 type(s)
+def answer_four():
+    df['Points']=df['Gold.2']*3+df['Silver.2']*2+df['Bronze.2']
+    s=pd.Series(df['Points'])
+    return s
+answer_four()
 #######################################################
 df = pd.read_csv('C:/Users/Owner/Documents/Python/log.csv')
 df
@@ -117,17 +141,56 @@ census_df.head()
 len(census_df)
 df0=census_df[census_df['COUNTY']>0]
 len(df0)
+#------------
 df1=df0['STNAME']
 ans=df1.mode().iloc[0]
-
-
+def answer_five():
+    df1=census_df['STNAME']
+    return df1.mode().iloc[0]
+answer_five()
+#------------------
 df0=census_df[census_df['COUNTY']>0]
 df9=df0.sort_values(['STNAME', 'CENSUS2010POP'],ascending=False)
 df9[['STNAME','CENSUS2010POP']]
+def answer_six():
+    df0=census_df[census_df['COUNTY']>0]
+    df1=df0.sort_values(['STNAME', 'CENSUS2010POP'],ascending=False)
+    lst1=[]
+    lst2=[]
+    cols=['c1','c2']
+    for row in df1['STNAME'].unique():
+        df2=df1[df1['STNAME']==row].iloc[0:3]
+        #print(row,df2['CENSUS2010POP'].sum())
+        lst1.append(row)
+        lst2.append(df2['CENSUS2010POP'].sum())
+        df2['Total']=df2['CENSUS2010POP'].sum()
+    df10=pd.DataFrame()
+    df10['STNAME']=lst1
+    df10['Total']=lst2
+    df11=df10.sort_values(['Total'],ascending=False)
+    return df11['STNAME'].iloc[:3].tolist()
 
-df9.columns
+temp1=answer_six()
+print(temp1)
+# -------------------
+def answer_seven():
+    pmax=0
+    df0=census_df[census_df['COUNTY']>0]
+    for index, row in df0.iterrows():
+        p1=[row['POPESTIMATE2015'],row['POPESTIMATE2014'],row['POPESTIMATE2013'],row['POPESTIMATE2012'],row['POPESTIMATE2010'],row['POPESTIMATE2011']]
+        pmax=max(pmax,max(p1)-min(p1))
+        print(row['CTYNAME'],max(p1)-min(p1),pmax)
+    return pmax
+print(answer_seven())
+
+#-----------------------
+def answer_eight():
+    df10=census_df
+    df11=df10[(df10['CTYNAME'].str.startswith('Washington')) & (df10['REGION']<3) & (df10['POPESTIMATE2015']>df10['POPESTIMATE2014'])]
+    return df11[['STNAME','CTYNAME']]
+
 df10=df9[["REGION",'STNAME','CTYNAME','POPESTIMATE2014', 'POPESTIMATE2015']]
-df11=df10[df10['CTYNAME'].str.startswith('Washington')]
+df11=df10[(df10['CTYNAME'].str.startswith('Washington')) & (df10['REGION']<3)]
 df11['CTYNAME']
 
 
